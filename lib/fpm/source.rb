@@ -27,15 +27,16 @@ class FPM::Source
   def initialize(paths, root, params={})
     @paths = paths
     @root = root
+    @params = params
+  end # def initialize
 
-    get_source(params)
-    get_metadata
-
+  # Takes the given @params and overrides metadata
+  def override_metadata
     # override the inferred data with the passed-in data
-    params.each do |k,v|
+    @params.each do |k,v|
       self[k] = v if v != nil
     end
-  end # def initialize
+  end
 
   # this method should take the paths and root and infer as much
   # about the package as it can.

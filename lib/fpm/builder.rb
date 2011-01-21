@@ -58,6 +58,9 @@ class FPM::Builder
     File.delete(output) if File.exists?(output) && !File.directory?(output)
 
     make_builddir!
+    @source.get_source(builddir)
+    @source.get_metadata(builddir)
+    @source.override_metadata(builddir)
 
     ::Dir.chdir root do
       @source.make_tarball!(tar_path, builddir)

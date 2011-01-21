@@ -5,12 +5,12 @@ require "rubygems"
 require "fileutils"
 
 class FPM::Source::Gem < FPM::Source
-  def get_source(params)
+  def get_source
     gem = @paths.first
     looks_like_name_re = /^[A-Za-z0-9_-]+$/
     if !File.exists?(gem) 
       if gem =~ looks_like_name_re
-        download(gem, params[:version])
+        download(gem, @params[:version])
       else
         raise "Path '#{gem}' is not a file and does not appear to be the name of a rubygem."
       end
