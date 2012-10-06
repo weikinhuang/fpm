@@ -99,7 +99,9 @@ class FPM::Package::RPM < FPM::Package
       fixed_deps = []
       self.dependencies.collect do |dep|
         name, op, version = dep.split(/\s+/)
-        if op == "~>"
+        if op == "="
+          fixed_deps << "#{name} >= #{version}"
+        elsif op == "~>"
           # ~> x.y means: > x.y and < (x+1).0
           fixed_deps << "#{name} >= #{version}"
           fixed_deps << "#{name} < #{version.to_i + 1}.0.0"
